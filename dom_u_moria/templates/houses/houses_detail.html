@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ house.name }}
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'home' %}">Главная</a>
+    <div>
+        <h1>{{ house.name }}</h1>
+        <div>{{ house.price }}</div>
+        <div>{{ house.description }}</div>
+
+        {% if house.photo %}
+        <img src="{{ house.photo.url }}" alt="Дом {{ house.name }}" width="400px">
+        {% endif %}
+
+    </div>
+
+    <h2>Заявка</h2>
+    {% if sent %}
+        <p>Спасибо Ваша заявка принята.</p>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить заявку</button>
+    </form>
+{% endblock %}
